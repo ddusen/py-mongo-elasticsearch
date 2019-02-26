@@ -182,15 +182,15 @@
                                 },
                                 "coupons_order_dis_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "coupons_dis_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "es_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "hex_discount_id":
                                 {
@@ -222,7 +222,7 @@
                                 },
                                 "item_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "payments":
                                 {
@@ -231,7 +231,7 @@
                                     {
                                         "org_pay_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "hex_category_name":
                                         {
@@ -290,7 +290,7 @@
                                         },
                                         "hex_trans_discount_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "hex_priority":
                                         {
@@ -298,7 +298,7 @@
                                         },
                                         "hex_pay_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "hex_id":
                                         {
@@ -306,11 +306,11 @@
                                         },
                                         "tips_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "rule_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "tender_name":
                                         {
@@ -326,11 +326,11 @@
                                         },
                                         "dis_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "id":
                                         {
@@ -359,7 +359,7 @@
                                         },
                                         "es_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "tender_id":
                                         {
@@ -367,7 +367,7 @@
                                         },
                                         "db_fav_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "tender_type":
                                         {
@@ -380,11 +380,11 @@
                                         },
                                         "change":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "pay_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         }
                                     }
                                 },
@@ -411,23 +411,23 @@
                                     {
                                         "hex_dis_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "dis_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "hex_net_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "net_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "coupons_item_dis_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "hex_discount_id":
                                         {
@@ -512,11 +512,11 @@
                                         },
                                         "hex_item_discount_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "hex_item_trans_payment_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "hex_order_discount_balance_with_trans":
                                         {
@@ -548,11 +548,11 @@
                                         },
                                         "dis_odr_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "dis_itm_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "price":
                                         {
@@ -596,7 +596,7 @@
                                         },
                                         "credit_amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "parent_id":
                                         {
@@ -624,7 +624,7 @@
                                         },
                                         "amount":
                                         {
-                                            "type": "integer"
+                                            "type": "double"
                                         },
                                         "key_id":
                                         {
@@ -667,11 +667,11 @@
                                 },
                                 "dis_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "none_bus_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "disc_name":
                                 {
@@ -687,7 +687,7 @@
                                 },
                                 "present_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "card_no":
                                 {
@@ -720,7 +720,7 @@
                                 },
                                 "pay_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "item_count":
                                 {
@@ -744,7 +744,7 @@
                                 },
                                 "amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "open_time":
                                 {
@@ -761,11 +761,11 @@
                                 },
                                 "disc_item_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "disc_order_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 },
                                 "bus_date":
                                 {
@@ -782,7 +782,7 @@
                                 },
                                 "net_amount":
                                 {
-                                    "type": "integer"
+                                    "type": "double"
                                 }
                             }
                         },

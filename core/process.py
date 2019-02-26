@@ -66,14 +66,15 @@ def init_elastic(flag):
 
 # 业务相关方法：递归格式化 pos 
 def format_pos(data):
-    for k, v in data.items():
-        # 数据中时间类型转字符串类型
-        if type(v) is datetime.datetime:
-            data[k] = date_to_str(v)
-        if type(v) is list:
-            for i in v:
-                format_pos(i)
-        if not v:
-            data[k] = None
-        elif type(v) is dict:
-            format_pos(v)
+    if data:
+        for k, v in data.items():
+            # 数据中时间类型转字符串类型
+            if type(v) is datetime.datetime:
+                data[k] = date_to_str(v)
+            if type(v) is list:
+                for i in v:
+                    format_pos(i)
+            if not v:
+                data[k] = None
+            elif type(v) is dict:
+                format_pos(v)
