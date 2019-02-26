@@ -1,4 +1,4 @@
-import os, sys, re
+import os, sys, re, time
 sys.path.append(os.getcwd())
 
 from elasticsearch import Elasticsearch
@@ -32,23 +32,24 @@ class Sync:
         mongo = Mongo(self.mongo)
         total = mongo.count()
         offset = 0
-        limit = 10
+        limit = 100
         while offset <= total:
+
+            # record offset and limit
+            self.logger.record('offset:{}, limit:{}'.format(offset, limit))
+
             queryset = mongo.find(offset=offset, limit=limit)
             for q in queryset:
                 # 数据库ID -> 文档ID
                 doc_id = str(q['_id'])
                 del q['_id']
                 # format data
-                doc = format_pos(q)
-
-                # record offset and limit
-                print('offset:{}, limit:{}'.format(offset, limit))
-                self.logger.record('offset:{}, limit:{}'.format(offset, limit))
-    
+                doc = q
+                format_pos(doc)
                 # elastic save
                 self._elastic(doc_id, doc, option='create')
 
+            time.sleep(1)
             offset += limit
 
         self.logger.record('Ending：based full sql.')
@@ -108,7 +109,6 @@ class Sync:
             except RequestError:
                 status = 'Fail(existsd) !'
 
-        print('Sync@%s < %s-%s-%s > %s' % (option, self.elastic['index'], self.elastic['type'], doc_id, status, ))
         self.logger.record('Sync@%s < %s-%s-%s > %s' % (option, self.elastic['index'], self.elastic['type'], doc_id, status, ))
 
 
