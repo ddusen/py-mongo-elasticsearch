@@ -35,18 +35,18 @@ def read_config():
 # 写入 config.ini 配置项
 def write_config(section, key, value):
     cfg = RawConfigParser()
-    cfg.read('core/config.ini')
+    cfg.read('config/config.ini')
     if section not in cfg.sections():
         cfg.add_section(section)
 
     cfg.set(section, key, value)
 
-    with open('core/config.ini', 'w') as f:
+    with open('config/config.ini', 'w') as f:
         cfg.write(f)
 
 
 #读取 mapping 文件
-def read_mapping(name="mapping/pos.json"):
+def read_mapping(name):
     with open(name, 'r') as file:
         return file.read()
     return ''

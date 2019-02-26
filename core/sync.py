@@ -41,6 +41,11 @@ class Sync:
                 del q['_id']
                 # format data
                 doc = format_pos(q)
+
+                # record offset and limit
+                print('offset:{}, limit:{}'.format(offset, limit))
+                self.logger.record('offset:{}, limit:{}'.format(offset, limit))
+    
                 # elastic save
                 self._elastic(doc_id, doc, option='create')
 
