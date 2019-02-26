@@ -86,6 +86,10 @@
                                 {
                                     "type": "double"
                                 },
+                                "order_unique_no":
+                                {
+                                    "type": "text"
+                                },
                                 "hex_no_cup_item_quantity":
                                 {
                                     "type": "double"
@@ -341,6 +345,10 @@
                                             "type": "integer"
                                         },
                                         "order_no":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "order_unique_no":
                                         {
                                             "type": "text"
                                         },
@@ -623,6 +631,10 @@
                                             "type": "text"
                                         },
                                         "order_no":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "order_unique_no":
                                         {
                                             "type": "text"
                                         },
