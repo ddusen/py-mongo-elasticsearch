@@ -1,0 +1,15 @@
+# Upgrade pip: pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+# Install with: pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+
+# Other
+wheel == 0.30.0
+
+# MySQL
+PyMySQL == 0.7.11
+mysql-replication == 0.18
+
+# Mongo
+pymongo == 3.7.2
+
+# ES
+elasticsearch == 6.3.1

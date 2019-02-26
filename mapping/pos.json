@@ -1,0 +1,845 @@
+{
+    "mappings":
+    {
+        "pos":
+        {
+            "properties":
+            {
+                "terminal_header":
+                {
+                    "type": "text"
+                },
+                "store":
+                {
+                    "type": "text"
+                },
+                "store_id":
+                {
+                    "type": "text"
+                },
+                "store_name":
+                {
+                    "type": "text"
+                },
+                "store_code":
+                {
+                    "type": "text"
+                },
+                "store_type":
+                {
+                    "type": "text"
+                },
+                "store_us_id":
+                {
+                    "type": "text"
+                },
+                "operator":
+                {
+                    "type": "text"
+                },
+                "operator_name":
+                {
+                    "type": "text"
+                },
+                "upload":
+                {
+                    "type": "text"
+                },
+                "hash":
+                {
+                    "type": "text"
+                },
+                "action_type":
+                {
+                    "type": "text"
+                },
+                "terminal_open_time":
+                {
+                    "type": "date",
+                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                },
+                "sales_date":
+                {
+                    "type": "date",
+                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                },
+                "created":
+                {
+                    "type": "date",
+                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                },
+                "payload":
+                {
+                    "type": "nested",
+                    "properties":
+                    {
+                        "transaction_type":
+                        {
+                            "type": "text"
+                        },
+                        "body":
+                        {
+                            "type": "nested",
+                            "properties":
+                            {
+                                "pre_sell_amount":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_no_cup_item_quantity":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_no_cup_net_amount":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_no_cup_amount":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_amount":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_trans_discount_amount":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_dis_amount":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_discount_count":
+                                {
+                                    "type": "long"
+                                },
+                                "hex_master_discount_amount":
+                                {
+                                    "type": "double"
+                                },
+                                "hex_discount_list":
+                                {
+                                    "type": "nested",
+                                    "properties":
+                                    {
+                                        "is_order":
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        "is_trans":
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        "amount":
+                                        {
+                                            "type": "double"
+                                        },
+                                        "name":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "code":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "id":
+                                        {
+                                            "type": "text"
+                                        }
+                                    }
+                                },
+                                "hex_has_discount":
+                                {
+                                    "type": "nested",
+                                    "properties":
+                                    {
+                                        "master":
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        "item_coupon":
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        "order_coupon":
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        "item":
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        "order":
+                                        {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "coupons_order_dis_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "coupons_dis_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "es_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "hex_discount_id":
+                                {
+                                    "type": "text"
+                                },
+                                "hex_trans_payments":
+                                {
+                                    "type": "integer"
+                                },
+                                "is_cancel":
+                                {
+                                    "type": "boolean"
+                                },
+                                "open_user_id":
+                                {
+                                    "type": "text"
+                                },
+                                "disc_user_id":
+                                {
+                                    "type": "text"
+                                },
+                                "pay_comment":
+                                {
+                                    "type": "text"
+                                },
+                                "pay_channel":
+                                {
+                                    "type": "text"
+                                },
+                                "item_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "payments":
+                                {
+                                    "type": "nested",
+                                    "properties":
+                                    {
+                                        "org_pay_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_category_name":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "hex_category_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "hex_trans_discounts":
+                                        {
+                                            "type": "nested",
+                                            "properties":
+                                            {
+                                                "status":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "number":
+                                                {
+                                                    "type": "long"
+                                                },
+                                                "name":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "id":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "computing_unit":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "code":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "category_name":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "category_id":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "category_code":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "attribute":
+                                                {
+                                                    "type": "text"
+                                                }
+                                            }
+                                        },
+                                        "hex_trans_discount_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_priority":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_pay_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "tips_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "rule_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "tender_name":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "db_fav_data":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "n_link_discount_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "dis_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "guid":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "dis_rate":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "order_no":
+                                        {
+                                            "type": "long"
+                                        },
+                                        "pay_time":
+                                        {
+                                            "type": "date",
+                                            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                        },
+                                        "es_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "tender_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "db_fav_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "tender_type":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "bus_date":
+                                        {
+                                            "type": "date",
+                                            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                        },
+                                        "change":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "pay_amount":
+                                        {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "xgu_id":
+                                {
+                                    "type": "text"
+                                },
+                                "chargehostid":
+                                {
+                                    "type": "text"
+                                },
+                                "peoples":
+                                {
+                                    "type": "integer"
+                                },
+                                "address":
+                                {
+                                    "type": "text"
+                                },
+                                "items":
+                                {
+                                    "type": "nested",
+                                    "properties":
+                                    {
+                                        "hex_dis_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "dis_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_net_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "net_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "coupons_item_dis_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_discount_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "hex_trans_payments":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_extends":
+                                        {
+                                            "type": "nested",
+                                            "properties":
+                                            {
+                                                "spec_1":
+                                                {
+                                                    "type": "text"
+                                                }
+                                            }
+                                        },
+                                        "unit_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "hex_is_cup":
+                                        {
+                                            "type": "boolean"
+                                        },
+                                        "hex_main_type":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "hex_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "categories":
+                                        {
+                                            "type": "nested",
+                                            "properties":
+                                            {
+                                                "parent_id":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "code":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "name":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "id":
+                                                {
+                                                    "type": "text"
+                                                }
+                                            }
+                                        },
+                                        "category":
+                                        {
+                                            "type": "nested",
+                                            "properties":
+                                            {
+                                                "parent_id":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "code":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "name":
+                                                {
+                                                    "type": "text"
+                                                },
+                                                "id":
+                                                {
+                                                    "type": "text"
+                                                }
+                                            }
+                                        },
+                                        "hex_item_discount_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_item_trans_payment_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_order_discount_balance_with_trans":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_order_discount_balance":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_trans_payment_balance":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "hex_trans_discount_balance":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "catalog_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "meal_deal_master_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "item_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "dis_odr_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "dis_itm_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "price":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "unit":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "guid":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "discount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "qty":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "dis_style":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "credit_total":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "dis_name":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "amount_ex":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "depart_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "credit_amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "parent_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "plu":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "n_discount_grp":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "dis_key_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "name":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "coupons":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "amount":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "key_id":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "order_no":
+                                        {
+                                            "type": "long"
+                                        },
+                                        "type":
+                                        {
+                                            "type": "text"
+                                        },
+                                        "bus_date":
+                                        {
+                                            "type": "date",
+                                            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                        },
+                                        "base_price":
+                                        {
+                                            "type": "integer"
+                                        },
+                                        "meal_deal_item_id":
+                                        {
+                                            "type": "text"
+                                        }
+                                    }
+                                },
+                                "pay_method":
+                                {
+                                    "type": "text"
+                                },
+                                "pay_benefit":
+                                {
+                                    "type": "integer"
+                                },
+                                "dis_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "none_bus_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "disc_name":
+                                {
+                                    "type": "text"
+                                },
+                                "yuni_number":
+                                {
+                                    "type": "text"
+                                },
+                                "discount":
+                                {
+                                    "type": "integer"
+                                },
+                                "present_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "card_no":
+                                {
+                                    "type": "text"
+                                },
+                                "open_user_name":
+                                {
+                                    "type": "text"
+                                },
+                                "disc_style":
+                                {
+                                    "type": "text"
+                                },
+                                "customer_name":
+                                {
+                                    "type": "text"
+                                },
+                                "close_time":
+                                {
+                                    "type": "date",
+                                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                },
+                                "pos_name":
+                                {
+                                    "type": "text"
+                                },
+                                "close_user_name":
+                                {
+                                    "type": "text"
+                                },
+                                "pay_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "item_count":
+                                {
+                                    "type": "integer"
+                                },
+                                "close_user_id":
+                                {
+                                    "type": "text"
+                                },
+                                "disc_key_id":
+                                {
+                                    "type": "text"
+                                },
+                                "sum_change":
+                                {
+                                    "type": "integer"
+                                },
+                                "coupons":
+                                {
+                                    "type": "integer"
+                                },
+                                "amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "open_time":
+                                {
+                                    "type": "date",
+                                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                },
+                                "order_no":
+                                {
+                                    "type": "long"
+                                },
+                                "pos_id":
+                                {
+                                    "type": "text"
+                                },
+                                "disc_item_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "disc_order_amount":
+                                {
+                                    "type": "integer"
+                                },
+                                "bus_date":
+                                {
+                                    "type": "date",
+                                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                },
+                                "active_code":
+                                {
+                                    "type": "text"
+                                },
+                                "phone":
+                                {
+                                    "type": "text"
+                                },
+                                "net_amount":
+                                {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "header":
+                        {
+                            "type": "nested",
+                            "properties":
+                            {
+                                "from":
+                                {
+                                    "type": "date",
+                                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                },
+                                "to":
+                                {
+                                    "type": "date",
+                                    "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                                },
+                                "total":
+                                {
+                                    "type": "long"
+                                }
+                            }
+                        }
+                    }
+                },
+                "store_branch":
+                {
+                    "type": "nested",
+                    "properties":
+                    {
+                        "parent_id":
+                        {
+                            "type": "text"
+                        },
+                        "name":
+                        {
+                            "type": "text"
+                        },
+                        "id":
+                        {
+                            "type": "text"
+                        }
+                    }
+                },
+                "store_geo":
+                {
+                    "type": "nested",
+                    "properties":
+                    {
+                        "parent_id":
+                        {
+                            "type": "text"
+                        },
+                        "name":
+                        {
+                            "type": "text"
+                        },
+                        "id":
+                        {
+                            "type": "text"
+                        }
+                    }
+                },
+                "__v":
+                {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
