@@ -342,7 +342,7 @@
                                         },
                                         "order_no":
                                         {
-                                            "type": "long"
+                                            "type": "text"
                                         },
                                         "pay_time":
                                         {
@@ -624,7 +624,7 @@
                                         },
                                         "order_no":
                                         {
-                                            "type": "long"
+                                            "type": "text"
                                         },
                                         "type":
                                         {
@@ -741,7 +741,7 @@
                                 },
                                 "order_no":
                                 {
-                                    "type": "long"
+                                    "type": "text"
                                 },
                                 "pos_id":
                                 {
