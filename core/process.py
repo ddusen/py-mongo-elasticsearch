@@ -1,4 +1,4 @@
-import os, sys, datetime
+import os, sys, datetime, math
 sys.path.append(os.getcwd())
 
 from configparser import (ConfigParser, RawConfigParser, )
@@ -68,13 +68,15 @@ def init_elastic(flag):
 def format_pos(data):
     if data:
         for k, v in data.items():
-            # 数据中时间类型转字符串类型
-            if type(v) is datetime.datetime:
-                data[k] = date_to_str(v)
-            if type(v) is list:
-                for i in v:
-                    format_pos(i)
             if not v:
+                data[k] = None
+            elif type(v) is datetime.datetime:
+                # 数据中时间类型转字符串类型
+                data[k] = date_to_str(v)
+            elif type(v) is float and math.isnan(v):
                 data[k] = None
             elif type(v) is dict:
                 format_pos(v)
+            elif type(v) is list:
+                for i in v:
+                    format_pos(i)
