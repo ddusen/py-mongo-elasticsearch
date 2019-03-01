@@ -11,6 +11,7 @@ from elasticsearch.exceptions import (NotFoundError,
 from pymongo import MongoClient, ASCENDING
 from pymongo.cursor import CursorType
 from pymongo.errors import AutoReconnect
+from bson.timestamp import Timestamp
 
 from process import (read_config, write_config, read_mapping,
                      format_pos, )
@@ -74,21 +75,21 @@ class Sync:
     def _inc_oplog(self):
         self.logger.record('Starting：based increase oplog...')
 
+        # sync
         oplog = Mongo(self.mongo).client().local.oplog.rs
-
         # 获取偏移量
         stamp = oplog.find().sort('$natural',ASCENDING).limit(-1).next()['ts'] if not self.oplog['ts'] else self.oplog['ts']
 
         while True:
             kw = {}
 
-            kw['filter'] = {'ts': {'$gt': stamp}}
+            kw['filter'] = {'ts': {'$gt': eval(stamp)}}
             kw['cursor_type'] = CursorType.TAILABLE_AWAIT
             kw['oplog_replay'] = True
 
             cursor = oplog.find(**kw)
-
             try:
+
                 while cursor.alive:
                     for q in cursor:
                         stamp = q['ts']
@@ -189,4 +190,4 @@ class Sync:
 if __name__ == '__main__':
     sync = Sync()
     sync._full_sql()
-    # sync._inc_oplog()
+    sync._inc_oplog()

@@ -22,7 +22,7 @@ class Mongo:
             # authMechanism=config.get('authMechanism'),
         )
         self.db = config['db']
-        self.table = config['table']
+        self.table = config.get('table')
 
     def count(self):
         return self.mongo_client[self.db][self.table].count_documents({})
