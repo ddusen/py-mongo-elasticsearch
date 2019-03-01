@@ -12,6 +12,9 @@ def read_config():
     cfg = ConfigParser()
     cfg.read('config/config.ini')
 
+    is_null = lambda x : None if not x else x
+    is_list = lambda x : None if not x else eval(x)
+
     mongo_conf = {
         'host': cfg.get('mongo', 'host'),
         'port': cfg.getint('mongo', 'port'),
@@ -20,19 +23,12 @@ def read_config():
         # 'authSource': cfg.get('mongo', 'authSource'),
         # 'authMechanism': cfg.get('mongo', 'authMechanism'),
         'db': cfg.get('mongo', 'db'),
-        'table': cfg.get('mongo', 'table'),
+        'tables': is_list(cfg.get('mongo', 'tables')),
     }
     elastic_conf = {
-        'init': cfg.get('elastic', 'init'),
         'host': cfg.get('elastic', 'host'),
         'port': cfg.getint('elastic', 'port'),
-        'index': cfg.get('elastic', 'index'),
-        'type': cfg.get('elastic', 'type'),
     }
-    
-    is_null = lambda x : None if not x else x
-    is_list = lambda x : None if not x else eval(x)
-
     oplog_conf = {
         'ts': is_null(cfg.get('oplog', 'ts')),
     }
@@ -55,21 +51,10 @@ def write_config(section, key, value):
 
 #读取 mapping 文件
 def read_mapping(name):
-    with open(name, 'r') as file:
+    mapping_name = 'mapping/{}.json'.format(name)
+    with open(mapping_name, 'r') as file:
         return file.read()
     return ''
-
-
-# 初始化 elastic doc types
-def init_elastic(flag):
-    if 'True' == flag:
-        # 修改初始化为 False
-        write_config('elastic', 'init', 'False')
-        # 执行初始化命令
-        command = '''self._elastic(doc={}, option="init")'''.format(read_mapping('mapping/pos.json'))
-        return command
-    else:
-        return '1 + 1'
 
 
 # 业务相关方法：递归格式化 pos 

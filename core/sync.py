@@ -12,7 +12,7 @@ from pymongo import MongoClient, ASCENDING
 from pymongo.cursor import CursorType
 from pymongo.errors import AutoReconnect
 
-from process import (read_config, write_config, init_elastic,
+from process import (read_config, write_config, read_mapping,
                      format_pos, )
 from utils.logger import Logger
 from utils.mongo import Mongo
@@ -31,37 +31,42 @@ class Sync:
         self.oplog = config['oplog']
 
         # inital logging
-        self.logger = Logger('pos')
-
-        # inital elastic doc types
-        eval(init_elastic(self.elastic['init']))
+        self.logger = Logger('sync')
 
     # 基于 SQL 语句的全量同步
     def _full_sql(self):
         self.logger.record('Starting：based full sql...')
 
-        mongo = Mongo(self.mongo)
-        total = mongo.count()
-        offset = 0
-        limit = 100
-        while offset <= total:
+        for table in self.mongo['tables']:
 
-            # record offset and limit
-            self.logger.record('offset:{}, limit:{}'.format(offset, limit))
+            # create new es doc_type
+            self.logger.record('create new es doc_type:{}'.format(table))
+            self._elastic(self.mongo['db'], table, doc=read_mapping(table), option='init')
 
-            queryset = mongo.find(offset=offset, limit=limit)
-            for q in queryset:
-                # 数据库ID -> 文档ID
-                doc_id = str(q['_id'])
-                del q['_id']
-                # format data
-                doc = q
-                format_pos(doc)
-                # elastic save
-                self._elastic(doc_id, doc, option='create')
+            # sync
+            self.mongo['table'] = table
+            client = Mongo(self.mongo)
+            total = client.count()
+            offset = 0
+            limit = 100
+            while offset <= total:
 
-            time.sleep(1)
-            offset += limit
+                # record offset and limit
+                self.logger.record('offset:{}, limit:{}'.format(offset, limit))
+
+                queryset = client.find(offset=offset, limit=limit)
+                for q in queryset:
+                    # 数据库ID -> 文档ID
+                    doc_id = str(q['_id'])
+                    del q['_id']
+                    # format data
+                    doc = q
+                    format_pos(doc)
+                    # elastic save
+                    self._elastic(self.mongo['db'], table, doc_id, doc, option='create')
+
+                sleep(_SLEEP)
+                offset += limit
 
         self.logger.record('Ending：based full sql.')
 
@@ -183,5 +188,5 @@ class Sync:
 
 if __name__ == '__main__':
     sync = Sync()
-    # sync._full_sql()
-    sync._inc_oplog()
+    sync._full_sql()
+    # sync._inc_oplog()
