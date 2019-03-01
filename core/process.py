@@ -15,6 +15,10 @@ def read_config():
     mongo_conf = {
         'host': cfg.get('mongo', 'host'),
         'port': cfg.getint('mongo', 'port'),
+        # 'user': cfg.get('mongo', 'user'),
+        # 'passwd': cfg.get('mongo', 'passwd'),
+        # 'authSource': cfg.get('mongo', 'authSource'),
+        # 'authMechanism': cfg.get('mongo', 'authMechanism'),
         'db': cfg.get('mongo', 'db'),
         'table': cfg.get('mongo', 'table'),
     }
