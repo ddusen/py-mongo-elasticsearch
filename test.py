@@ -16,8 +16,52 @@ def test_format_time():
     print(data)
 
 
+def test_oplog():
+    from time import sleep
+
+    from pymongo import MongoClient, ASCENDING
+    from pymongo.cursor import CursorType
+    from pymongo.errors import AutoReconnect
+
+    # Time to wait for data or connection.
+    _SLEEP = 1
+
+    config = {
+            'host': '106.14.94.38',
+            'port': 27071,
+            'db': 'saas_dq_uat',
+            'table': 'pos'
+        }
+    oplog = MongoClient(
+            config['host'],
+            config['port'],
+        ).local.oplog.rs
+    stamp = oplog.find().sort('$natural', ASCENDING).limit(-1).next()['ts']
+
+    while True:
+        kw = {}
+
+        kw['filter'] = {'ts': {'$gt': stamp}}
+        kw['cursor_type'] = CursorType.TAILABLE_AWAIT
+        kw['oplog_replay'] = True
+
+        cursor = oplog.find(**kw)
+
+        try:
+            while cursor.alive:
+                for doc in cursor:
+                    stamp = doc['ts']
+
+                    print(doc)  # Do something with doc.
+
+                sleep(_SLEEP)
+
+        except AutoReconnect:
+            sleep(_SLEEP)
+
+
 def main():
-    test_format_time()
+    test_oplog()
 
 
 if __name__ == '__main__':

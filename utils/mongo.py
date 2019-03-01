@@ -13,7 +13,7 @@ class Mongo:
             'table': 'pos'
         }
         '''
-        self.client = MongoClient(
+        self.mongo_client = MongoClient(
             config['host'],
             config['port'],
             # username=config.get('user'),
@@ -25,13 +25,13 @@ class Mongo:
         self.table = config['table']
 
     def count(self):
-        return self.client[self.db][self.table].count_documents({})
+        return self.mongo_client[self.db][self.table].count_documents({})
 
     def find(self, offset=0, limit=10):
-        return self.client[self.db][self.table].find({}).skip(offset).limit(limit)
+        return self.mongo_client[self.db][self.table].find({}).skip(offset).limit(limit)
 
-    def find_by_ts(self, ts, offset=0, limit=10):
-        return self.client[self.db][self.table].find({'ts': {'$gt': ts}}).skip(offset).limit(limit)
+    def client(self):
+        return self.mongo_client
 
 
 if __name__ == '__main__':

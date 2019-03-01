@@ -33,7 +33,11 @@ def read_config():
     is_null = lambda x : None if not x else x
     is_list = lambda x : None if not x else eval(x)
 
-    return {'mongo': mongo_conf, 'elastic': elastic_conf}
+    oplog_conf = {
+        'ts': is_null(cfg.get('oplog', 'ts')),
+    }
+    
+    return {'mongo': mongo_conf, 'elastic': elastic_conf, 'oplog': oplog_conf}
 
 
 # 写入 config.ini 配置项
