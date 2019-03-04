@@ -49,7 +49,6 @@ class Init:
                 query = [q for q in client.find_one(offset=offset)][0]
                 del query['_id']
 
-                print(query)
                 format_mapping(old_mapping['mappings'][table]['properties'], query)
 
                 write_mapping(table, old_mapping)
