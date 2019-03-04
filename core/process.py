@@ -85,10 +85,10 @@ def format_mapping(old_mapping, new_data):
             if not v:
                pass 
             elif type(v) is int and old_mapping[k]['type'] is 'text':
-                old_mapping[k] = {"type": "integer"}
+                old_mapping[k] = {"type": "long"}
             elif type(v) is bool and old_mapping[k]['type'] is 'text':
                 old_mapping[k] = {"type": "boolean"}
-            elif type(v) is float and old_mapping[k]['type'] in ['text', 'integer']:
+            elif type(v) is float and old_mapping[k]['type'] in ['text', 'long']:
                 old_mapping[k] = {"type": "float"}
             elif type(v) is datetime.datetime and not old_mapping[k]['type'] is 'nested':
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}

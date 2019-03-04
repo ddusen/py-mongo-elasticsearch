@@ -42,7 +42,7 @@ class Init:
             total = client.count()
             offset = 0
             # 随机向前移动 n 步：1⃣减少重复操作 2⃣均匀生成mapping
-            increase = lambda : random.randint(50, 200)
+            increase = lambda : random.randint(1, 100)
             while offset <= total:
                 self.logger.record('mapping: {}.json, total number:{}, current number:{}'.format(table, total, offset))
 
