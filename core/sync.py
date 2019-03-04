@@ -40,9 +40,9 @@ class Sync:
 
         for table in self.mongo['tables']:
 
-            # create new es doc_type
-            self.logger.record('create new es doc_type:{}'.format(table))
-            self._elastic(self.mongo['db'], table, doc=read_mapping(table), option='init')
+            # create new es index
+            self.logger.record('create new es index:{}'.format(table))
+            self._elastic(table, doc=read_mapping(table), option='init')
 
             # sync
             self.mongo['table'] = table
@@ -64,7 +64,7 @@ class Sync:
                     doc = q
                     format_data(doc)
                     # elastic save
-                    self._elastic(self.mongo['db'], table, doc_id, doc, option='create')
+                    self._elastic(table, doc_id, doc, option='create')
 
                 sleep(_SLEEP)
                 offset += limit
@@ -107,11 +107,11 @@ class Sync:
                         format_data(doc)
 
                         if op is 'u':
-                            self._elastic(db, table, doc_id, doc, option='update')
+                            self._elastic(table, doc_id, doc, option='update')
                         elif op is 'i':
-                            self._elastic(db, table, doc_id, doc, option='create')
+                            self._elastic(table, doc_id, doc, option='create')
                         elif op is 'd':
-                            self._elastic(db, table, doc_id, option='delete')
+                            self._elastic(table, doc_id, option='delete')
 
                         # 记录增量位置
                         write_config('oplog', 'ts', stamp)
@@ -123,7 +123,7 @@ class Sync:
         self.logger.record('Ending：based increase oplog.')
 
     # elastic
-    def _elastic(self, index=None, doc_type=None, doc_id=None, doc={}, option='create'):
+    def _elastic(self, index=None, doc_id=None, doc={}, option='create'):
         """
         option: 
             init: 初始化文档结构。（当config.ini中的init为True时才会执行。）
@@ -136,14 +136,13 @@ class Sync:
         status = 'Success !'
 
         index = self.elastic['index'] if not index else index
-        doc_type = self.elastic['type'] if not doc_type else doc_type
 
         if 'create' == option:
             try:
                 esclient.create(
                     index=index,
-                    doc_type=doc_type,
                     id=doc_id,
+                    doc_type=index,
                     body=doc,
                 )
             except ConflictError:
@@ -153,8 +152,8 @@ class Sync:
             try:
                 esclient.update(
                     index=index,
-                    doc_type=doc_type,
                     id=doc_id,
+                    doc_type=index,
                     body={'doc': doc},
                 )
             except NotFoundError:
@@ -164,8 +163,8 @@ class Sync:
             try:
                 esclient.delete(
                     index=index,
-                    doc_type=doc_type,
                     id=doc_id,
+                    doc_type=index,
                 )
             except NotFoundError:
                 status = 'Fail(not existsd) !'
@@ -179,12 +178,11 @@ class Sync:
             except RequestError:
                 status = 'Fail(existsd) !'
 
-        self.logger.record('Sync@%s < %s-%s-%s > %s' % (option,
-                                                        index,
-                                                        doc_type,
-                                                        doc_id,
-                                                        status,
-                                                        ))
+        self.logger.record('Sync@%s < %s-%s > %s' % (option,
+                                                    index,
+                                                    doc_id,
+                                                    status,
+                                                    ))
 
 
 if __name__ == '__main__':

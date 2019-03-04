@@ -108,7 +108,6 @@ def format_mapping(old_mapping, new_data):
                 format_mapping(old_mapping[k]['properties'], v)
             
 
-
 # 递归格式化 mongo data
 def format_data(data):
     if data:
