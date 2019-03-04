@@ -84,12 +84,12 @@ def format_mapping(old_mapping, new_data):
                pass 
             elif type(v) is str:
                 old_mapping[k] = {"type": "text"}
-            elif type(v) is int and old_mapping[k]['type'] is 'text' and not re.compile(r'.*?_no').match(k):
+            elif type(v) is int and old_mapping[k]['type'] is 'text' and not re.compile(r'.*?_no').match(k) and not re.compile(r'.*?_id').match(k):
                 old_mapping[k] = {"type": "long"}
             elif type(v) is bool and old_mapping[k]['type'] is 'text':
                 old_mapping[k] = {"type": "boolean"}
             elif type(v) is float and old_mapping[k]['type'] in ['text', 'long']:
-                old_mapping[k] = {"type": "float"}
+                old_mapping[k] = {"type": "double"}
             elif type(v) is datetime.datetime and not old_mapping[k]['type'] is 'nested':
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
             elif type(v) is str and (re.compile(r'....-..-.. ..:..:..').match(v) or re.compile(r'....-..-..').match(v)):
@@ -113,7 +113,7 @@ def format_mapping(old_mapping, new_data):
 def format_data(data):
     if data:
         for k, v in data.items():
-            if not v:
+            if not v and type(v) in [str, list, dict]:
                 data[k] = None
             elif type(v) is datetime.datetime:
                 # 数据中时间类型转字符串类型
