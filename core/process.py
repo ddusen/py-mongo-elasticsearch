@@ -56,18 +56,16 @@ def write_config(section, key, value):
 
 # 读取 mapping 文件
 def read_mapping(name):
-    mapping_name = 'mapping/{}.json'.format(name)
     try:
-        with open(mapping_name, 'r') as file:
-            return dict(file.read())
+        with open('mapping/{}.json'.format(name), 'r') as file:
+            return eval(file.read())
     except:
         return {"mappings":{name:{"properties": {}}}}
 
 
 # 写入 mapping 文件
 def write_mapping(name, data):
-    mapping_name = 'mapping/{}.json'.format(name)
-    with open(mapping_name, 'w') as file:
+    with open('mapping/{}.json'.format(name), 'w') as file:
         json.dump(data, file)
 
 
@@ -84,7 +82,9 @@ def format_mapping(old_mapping, new_data):
                 old_mapping[k] = {"type": "text"}
             if not v:
                pass 
-            elif type(v) is int and old_mapping[k]['type'] is 'text':
+            elif type(v) is str:
+                old_mapping[k] = {"type": "text"}
+            elif type(v) is int and old_mapping[k]['type'] is 'text' and not re.compile(r'.*?_no').match(k):
                 old_mapping[k] = {"type": "long"}
             elif type(v) is bool and old_mapping[k]['type'] is 'text':
                 old_mapping[k] = {"type": "boolean"}
@@ -94,15 +94,17 @@ def format_mapping(old_mapping, new_data):
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
             elif type(v) is str and (re.compile(r'....-..-.. ..:..:..').match(v) or re.compile(r'....-..-..').match(v)):
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
-            elif type(v) is list and not old_mapping[k]['type'] is 'nested':
+            elif type(v) is list:
                 first = v[0]
                 if not type(first) is dict:
                     old_mapping[k] = {"type": "text"}
                 else:
-                    old_mapping[k] = {"type": "nested", "properties": {}}
+                    if not (k in old_mapping and old_mapping[k]['type'] is 'nested'):
+                        old_mapping[k] = {"type": "nested", "properties": {}}
                     format_mapping(old_mapping[k]['properties'], first)
-            elif type(v) is dict and not old_mapping[k]['type'] is 'nested':
-                old_mapping[k] = {"type": "nested", "properties": {}}
+            elif type(v) is dict:
+                if not (k in old_mapping and old_mapping[k]['type'] is 'nested'):
+                    old_mapping[k] = {"type": "nested", "properties": {}}
                 format_mapping(old_mapping[k]['properties'], v)
             
 
@@ -117,6 +119,8 @@ def format_data(data):
                 # 数据中时间类型转字符串类型
                 data[k] = date_to_str(v)
             elif type(v) is float and math.isnan(v):
+                data[k] = None
+            elif type(v) is str and (v.upper() == 'NOUN' or v.upper() == 'MEAL_DEAL'):
                 data[k] = None
             elif type(v) is dict:
                 format_data(v)

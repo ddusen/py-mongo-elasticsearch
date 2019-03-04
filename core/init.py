@@ -46,12 +46,13 @@ class Init:
             while offset <= total:
                 self.logger.record('mapping: {}.json, total number:{}, current number:{}'.format(table, total, offset))
 
-                query = [q for q in client.find_one(offset=offset)][0]
-                del query['_id']
+                for query in client.find_one(offset=offset):
 
-                format_mapping(old_mapping['mappings'][table]['properties'], query)
+                    del query['_id']
 
-                write_mapping(table, old_mapping)
+                    format_mapping(old_mapping['mappings'][table]['properties'], query)
+
+                    write_mapping(table, old_mapping)
 
                 offset += increase()
 
