@@ -30,6 +30,9 @@ class Mongo:
     def find(self, offset=0, limit=10):
         return self.mongo_client[self.db][self.table].find({}).skip(offset).limit(limit)
 
+    def find_one(self, offset=0):
+        return self.mongo_client[self.db][self.table].find({}).skip(offset).limit(1) 
+
     def client(self):
         return self.mongo_client
 

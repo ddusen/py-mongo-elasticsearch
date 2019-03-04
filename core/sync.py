@@ -14,7 +14,7 @@ from pymongo.errors import AutoReconnect
 from bson.timestamp import Timestamp
 
 from process import (read_config, write_config, read_mapping,
-                     format_pos, )
+                     format_data, )
 from utils.logger import Logger
 from utils.mongo import Mongo
 
@@ -62,7 +62,7 @@ class Sync:
                     del q['_id']
                     # format data
                     doc = q
-                    format_pos(doc)
+                    format_data(doc)
                     # elastic save
                     self._elastic(self.mongo['db'], table, doc_id, doc, option='create')
 
@@ -104,7 +104,7 @@ class Sync:
                         del doc['_id']
 
                         # format data
-                        format_pos(doc)
+                        format_data(doc)
 
                         if op is 'u':
                             self._elastic(db, table, doc_id, doc, option='update')
