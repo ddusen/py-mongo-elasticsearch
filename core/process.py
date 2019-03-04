@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import datetime
 import math
@@ -58,9 +59,9 @@ def read_mapping(name):
     mapping_name = 'mapping/{}.json'.format(name)
     try:
         with open(mapping_name, 'r') as file:
-            return file.read()
+            return dict(file.read())
     except:
-        return None
+        return {"mappings":{name:{"properties": {}}}}
 
 
 # 写入 mapping 文件
@@ -72,10 +73,41 @@ def write_mapping(name, data):
 
 # 生成mapping文件，根据mongo data
 def format_mapping(old_mapping, new_data):
-    pass
+    '''
+    name: mapping name
+    old_mapping: 
+    new_data: 
+    '''
+    if new_data:
+        for k, v in new_data.items():
+            if not k in old_mapping:
+                old_mapping[k] = {"type": "text"}
+            if not v:
+               pass 
+            elif type(v) is int and old_mapping[k]['type'] is 'text':
+                old_mapping[k] = {"type": "integer"}
+            elif type(v) is bool and old_mapping[k]['type'] is 'text':
+                old_mapping[k] = {"type": "boolean"}
+            elif type(v) is float and old_mapping[k]['type'] in ['text', 'integer']:
+                old_mapping[k] = {"type": "float"}
+            elif type(v) is datetime.datetime and not old_mapping[k]['type'] is 'nested':
+                old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
+            elif type(v) is str and (re.compile(r'....-..-.. ..:..:..').match(v) or re.compile(r'....-..-..').match(v)):
+                old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
+            elif type(v) is list and not old_mapping[k]['type'] is 'nested':
+                first = v[0]
+                if not type(first) is dict:
+                    old_mapping[k] = {"type": "text"}
+                else:
+                    old_mapping[k] = {"type": "nested", "properties": {}}
+                    format_mapping(old_mapping[k]['properties'], first)
+            elif type(v) is dict and not old_mapping[k]['type'] is 'nested':
+                old_mapping[k] = {"type": "nested", "properties": {}}
+                format_mapping(old_mapping[k]['properties'], v)
+            
 
 
-# 业务相关方法：递归格式化 mongo data
+# 递归格式化 mongo data
 def format_data(data):
     if data:
         for k, v in data.items():

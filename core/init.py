@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import random
 sys.path.append(os.getcwd())
 
 from time import sleep
@@ -10,7 +11,7 @@ from utils.logger import Logger
 from utils.mongo import Mongo
 
 # Time to wait for data or connection.
-_SLEEP = 10
+_SLEEP = 3
 
 
 class Init:
@@ -48,9 +49,14 @@ class Init:
                 query = [q for q in client.find_one(offset=offset)][0]
                 del query['_id']
 
-                format_mapping(old_mapping, query)
+                print(query)
+                format_mapping(old_mapping['mappings'][table]['properties'], query)
+
+                write_mapping(table, old_mapping)
 
                 offset += increase()
+
+            sleep(_SLEEP)
 
         self.logger.record('Ending：build mapping.')
 
