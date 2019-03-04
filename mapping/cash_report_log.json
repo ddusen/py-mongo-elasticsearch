@@ -1,0 +1,19 @@
+{
+  "mappings":
+  {
+    "cash_report_log":
+    {
+      "properties":
+      {
+        "is_created_all":
+        {
+          "type": "boolean"
+        },
+        "operation_date":
+        {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

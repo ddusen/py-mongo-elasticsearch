@@ -1,0 +1,174 @@
+{
+  "mappings":
+  {
+    "pos_category_sales":
+    {
+      "properties":
+      {
+        "item_all_quantity":
+        {
+          "type": "long"
+        },
+        "store_type":
+        {
+          "type": "text"
+        },
+        "store_id":
+        {
+          "type": "text"
+        },
+        "sales_date":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "item_avg_net_amount":
+        {
+          "type": "double"
+        },
+        "item_categories":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "code":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "item_category_id":
+        {
+          "type": "text"
+        },
+        "item_net_amount_rate":
+        {
+          "type": "double"
+        },
+        "store_name":
+        {
+          "type": "text"
+        },
+        "branch":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "item_quantity":
+        {
+          "type": "long"
+        },
+        "item_cancel_amount":
+        {
+          "type": "double"
+        },
+        "item_amount":
+        {
+          "type": "double"
+        },
+        "status":
+        {
+          "type": "text"
+        },
+        "store_us_id":
+        {
+          "type": "text"
+        },
+        "item_hundred_times_rate":
+        {
+          "type": "double"
+        },
+        "date":
+        {
+          "type": "text"
+        },
+        "item_hex_net_amount":
+        {
+          "type": "double"
+        },
+        "geo":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "item_category_code":
+        {
+          "type": "text"
+        },
+        "item_all_amount":
+        {
+          "type": "double"
+        },
+        "created":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "item_cancel_discount":
+        {
+          "type": "double"
+        },
+        "all_cup_sum_item_count":
+        {
+          "type": "long"
+        },
+        "item_quantity_rate":
+        {
+          "type": "double"
+        },
+        "item_hex_discount":
+        {
+          "type": "double"
+        },
+        "item_net_amount":
+        {
+          "type": "double"
+        },
+        "all_cup_sum_net_amount":
+        {
+          "type": "double"
+        },
+        "item_cancel_quantity":
+        {
+          "type": "long"
+        }
+      }
+    }
+  }
+}

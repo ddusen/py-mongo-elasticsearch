@@ -1,0 +1,49 @@
+{
+  "mappings":
+  {
+    "pos_renews":
+    {
+      "properties":
+      {
+        "sales_date":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "renew_signal":
+        {
+          "type": "boolean"
+        },
+        "created":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "updated":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "store":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "id":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "__v":
+        {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

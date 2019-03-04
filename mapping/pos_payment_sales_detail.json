@@ -1,0 +1,409 @@
+{
+  "mappings":
+  {
+    "pos_payment_sales_detail":
+    {
+      "properties":
+      {
+        "branch_ids":
+        {
+          "type": "text"
+        },
+        "store_type":
+        {
+          "type": "text"
+        },
+        "store_id":
+        {
+          "type": "text"
+        },
+        "sales_date":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "geo_ids":
+        {
+          "type": "text"
+        },
+        "store_name":
+        {
+          "type": "text"
+        },
+        "payment_amount":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "22":
+            {
+              "type": "text"
+            },
+            "02":
+            {
+              "type": "text"
+            },
+            "03":
+            {
+              "type": "text"
+            },
+            "00":
+            {
+              "type": "long"
+            },
+            "01":
+            {
+              "type": "text"
+            },
+            "06":
+            {
+              "type": "text"
+            },
+            "07":
+            {
+              "type": "text"
+            },
+            "04":
+            {
+              "type": "text"
+            },
+            "05":
+            {
+              "type": "text"
+            },
+            "08":
+            {
+              "type": "text"
+            },
+            "09":
+            {
+              "type": "text"
+            },
+            "20":
+            {
+              "type": "long"
+            },
+            "21":
+            {
+              "type": "text"
+            },
+            "11":
+            {
+              "type": "double"
+            },
+            "10":
+            {
+              "type": "text"
+            },
+            "13":
+            {
+              "type": "text"
+            },
+            "12":
+            {
+              "type": "double"
+            },
+            "15":
+            {
+              "type": "text"
+            },
+            "14":
+            {
+              "type": "double"
+            },
+            "17":
+            {
+              "type": "long"
+            },
+            "16":
+            {
+              "type": "text"
+            },
+            "19":
+            {
+              "type": "text"
+            },
+            "18":
+            {
+              "type": "double"
+            },
+            "23":
+            {
+              "type": "double"
+            }
+          }
+        },
+        "branch":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "code":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "parent":
+            {
+              "type": "nested",
+              "properties":
+              {
+                "code":
+                {
+                  "type": "text"
+                },
+                "name":
+                {
+                  "type": "text"
+                },
+                "parent":
+                {
+                  "type": "nested",
+                  "properties":
+                  {
+                    "code":
+                    {
+                      "type": "text"
+                    },
+                    "name":
+                    {
+                      "type": "text"
+                    },
+                    "id":
+                    {
+                      "type": "text"
+                    }
+                  }
+                },
+                "parent_id":
+                {
+                  "type": "text"
+                },
+                "id":
+                {
+                  "type": "text"
+                }
+              }
+            },
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "count":
+        {
+          "type": "double"
+        },
+        "payment_code":
+        {
+          "type": "long"
+        },
+        "payment_name":
+        {
+          "type": "text"
+        },
+        "store_us_id":
+        {
+          "type": "text"
+        },
+        "geo":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "code":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "parent":
+            {
+              "type": "nested",
+              "properties":
+              {
+                "code":
+                {
+                  "type": "text"
+                },
+                "name":
+                {
+                  "type": "text"
+                },
+                "parent":
+                {
+                  "type": "nested",
+                  "properties":
+                  {
+                    "code":
+                    {
+                      "type": "text"
+                    },
+                    "name":
+                    {
+                      "type": "text"
+                    },
+                    "id":
+                    {
+                      "type": "text"
+                    }
+                  }
+                },
+                "parent_id":
+                {
+                  "type": "text"
+                },
+                "id":
+                {
+                  "type": "text"
+                }
+              }
+            },
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "payment_id":
+        {
+          "type": "text"
+        },
+        "store_code":
+        {
+          "type": "text"
+        },
+        "created":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "amount":
+        {
+          "type": "double"
+        },
+        "payment_type":
+        {
+          "type": "text"
+        },
+        "payment_count":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "22":
+            {
+              "type": "text"
+            },
+            "02":
+            {
+              "type": "text"
+            },
+            "03":
+            {
+              "type": "text"
+            },
+            "00":
+            {
+              "type": "long"
+            },
+            "01":
+            {
+              "type": "text"
+            },
+            "06":
+            {
+              "type": "text"
+            },
+            "07":
+            {
+              "type": "text"
+            },
+            "04":
+            {
+              "type": "text"
+            },
+            "05":
+            {
+              "type": "text"
+            },
+            "08":
+            {
+              "type": "text"
+            },
+            "09":
+            {
+              "type": "text"
+            },
+            "20":
+            {
+              "type": "long"
+            },
+            "21":
+            {
+              "type": "text"
+            },
+            "11":
+            {
+              "type": "long"
+            },
+            "10":
+            {
+              "type": "text"
+            },
+            "13":
+            {
+              "type": "text"
+            },
+            "12":
+            {
+              "type": "long"
+            },
+            "15":
+            {
+              "type": "text"
+            },
+            "14":
+            {
+              "type": "long"
+            },
+            "17":
+            {
+              "type": "long"
+            },
+            "16":
+            {
+              "type": "text"
+            },
+            "19":
+            {
+              "type": "text"
+            },
+            "18":
+            {
+              "type": "long"
+            },
+            "23":
+            {
+              "type": "long"
+            }
+          }
+        }
+      }
+    }
+  }
+}

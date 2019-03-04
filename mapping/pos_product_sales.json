@@ -1,0 +1,209 @@
+{
+  "mappings":
+  {
+    "pos_product_sales":
+    {
+      "properties":
+      {
+        "store_type":
+        {
+          "type": "text"
+        },
+        "store_id":
+        {
+          "type": "text"
+        },
+        "sales_date":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "item_trans_discount":
+        {
+          "type": "text"
+        },
+        "item_avg_net_amount":
+        {
+          "type": "double"
+        },
+        "item_id":
+        {
+          "type": "text"
+        },
+        "item_discount":
+        {
+          "type": "double"
+        },
+        "item_categories":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "code":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "item_net_amount_rate":
+        {
+          "type": "double"
+        },
+        "item_name":
+        {
+          "type": "text"
+        },
+        "item_in_discount":
+        {
+          "type": "double"
+        },
+        "store_name":
+        {
+          "type": "text"
+        },
+        "branch":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "item_quantity":
+        {
+          "type": "long"
+        },
+        "item_cancel_amount":
+        {
+          "type": "double"
+        },
+        "item_amount":
+        {
+          "type": "double"
+        },
+        "status":
+        {
+          "type": "text"
+        },
+        "item_in_quantity":
+        {
+          "type": "long"
+        },
+        "store_us_id":
+        {
+          "type": "text"
+        },
+        "item_code":
+        {
+          "type": "long"
+        },
+        "item_hundred_times_rate":
+        {
+          "type": "double"
+        },
+        "item_is_deal_master":
+        {
+          "type": "boolean"
+        },
+        "date":
+        {
+          "type": "text"
+        },
+        "item_hex_net_amount":
+        {
+          "type": "double"
+        },
+        "item_in_amount":
+        {
+          "type": "double"
+        },
+        "geo":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "created":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "item_cancel_discount":
+        {
+          "type": "double"
+        },
+        "all_cup_sum_item_count":
+        {
+          "type": "long"
+        },
+        "item_quantity_rate":
+        {
+          "type": "double"
+        },
+        "item_hex_discount":
+        {
+          "type": "double"
+        },
+        "item_net_amount":
+        {
+          "type": "double"
+        },
+        "all_cup_sum_net_amount":
+        {
+          "type": "double"
+        },
+        "item_cancel_quantity":
+        {
+          "type": "long"
+        },
+        "item_extends":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "spec_1":
+            {
+              "type": "text"
+            }
+          }
+        }
+      }
+    }
+  }
+}

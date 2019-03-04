@@ -1,0 +1,210 @@
+{
+  "mappings":
+  {
+    "pos_store_channel_sales":
+    {
+      "properties":
+      {
+        "sub_channel_code":
+        {
+          "type": "text"
+        },
+        "sub_channel_name":
+        {
+          "type": "text"
+        },
+        "store_type":
+        {
+          "type": "text"
+        },
+        "store_id":
+        {
+          "type": "text"
+        },
+        "channel_name":
+        {
+          "type": "text"
+        },
+        "sales_date":
+        {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "store_code":
+        {
+          "type": "text"
+        },
+        "sub_channel_id":
+        {
+          "type": "text"
+        },
+        "store_name":
+        {
+          "type": "text"
+        },
+        "store_us_id":
+        {
+          "type": "text"
+        },
+        "channel_id":
+        {
+          "type": "text"
+        },
+        "sales_cancel_count":
+        {
+          "type": "double"
+        },
+        "branch":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "code":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "parent":
+            {
+              "type": "nested",
+              "properties":
+              {
+                "parent_id":
+                {
+                  "type": "text"
+                },
+                "code":
+                {
+                  "type": "text"
+                },
+                "name":
+                {
+                  "type": "text"
+                },
+                "parent":
+                {
+                  "type": "nested",
+                  "properties":
+                  {
+                    "code":
+                    {
+                      "type": "text"
+                    },
+                    "name":
+                    {
+                      "type": "text"
+                    },
+                    "id":
+                    {
+                      "type": "text"
+                    }
+                  }
+                },
+                "id":
+                {
+                  "type": "text"
+                }
+              }
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "sales_count":
+        {
+          "type": "long"
+        },
+        "sales_discount_amount":
+        {
+          "type": "double"
+        },
+        "channel_code":
+        {
+          "type": "text"
+        },
+        "geo":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "parent_id":
+            {
+              "type": "text"
+            },
+            "code":
+            {
+              "type": "text"
+            },
+            "name":
+            {
+              "type": "text"
+            },
+            "parent":
+            {
+              "type": "nested",
+              "properties":
+              {
+                "parent_id":
+                {
+                  "type": "text"
+                },
+                "code":
+                {
+                  "type": "text"
+                },
+                "name":
+                {
+                  "type": "text"
+                },
+                "parent":
+                {
+                  "type": "nested",
+                  "properties":
+                  {
+                    "code":
+                    {
+                      "type": "text"
+                    },
+                    "name":
+                    {
+                      "type": "text"
+                    },
+                    "id":
+                    {
+                      "type": "text"
+                    }
+                  }
+                },
+                "id":
+                {
+                  "type": "text"
+                }
+              }
+            },
+            "id":
+            {
+              "type": "text"
+            }
+          }
+        },
+        "sales_amount":
+        {
+          "type": "double"
+        },
+        "prev_sales_amount":
+        {
+          "type": "double"
+        }
+      }
+    }
+  }
+}
