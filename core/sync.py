@@ -19,7 +19,7 @@ from utils.logger import Logger
 from utils.mongo import Mongo
 
 # Time to wait for data or connection.
-_SLEEP = 3
+_SLEEP = 1
 
 
 class Sync:
