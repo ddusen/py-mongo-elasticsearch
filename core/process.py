@@ -96,12 +96,12 @@ def format_mapping(old_mapping, new_data):
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
             elif type(v) is list:
                 first = v[0]
-                if not type(first) is dict:
-                    old_mapping[k] = {"type": "text"}
-                else:
-                    if not (k in old_mapping and old_mapping[k]['type'] is 'nested'):
+                if type(first) is dict:
+                    if not k in old_mapping or not old_mapping[k]['type'] is 'nested':
                         old_mapping[k] = {"type": "nested", "properties": {}}
                     format_mapping(old_mapping[k]['properties'], first)
+                else:
+                    old_mapping[k] = {"type": "text"}
             elif type(v) is dict:
                 if not (k in old_mapping and old_mapping[k]['type'] is 'nested'):
                     old_mapping[k] = {"type": "nested", "properties": {}}
