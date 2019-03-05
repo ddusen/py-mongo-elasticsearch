@@ -84,7 +84,7 @@ def format_mapping(old_mapping, new_data):
                pass 
             elif type(v) is str:
                 old_mapping[k] = {"type": "text"}
-            elif type(v) is int and old_mapping[k]['type'] is 'text' and not re.compile(r'.*?_no').match(k) and not re.compile(r'.*?_id').match(k):
+            elif type(v) is int and old_mapping[k]['type'] is 'text' and True not in [ s in k for s in ['_no', '_code', '_id']]:
                 old_mapping[k] = {"type": "long"}
             elif type(v) is bool and old_mapping[k]['type'] is 'text':
                 old_mapping[k] = {"type": "boolean"}
