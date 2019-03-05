@@ -125,4 +125,6 @@ def format_data(data):
                 format_data(v)
             elif type(v) is list:
                 for i in v:
-                    format_data(i)
+                    if type(i) is dict:
+                        format_data(i)
+                    
