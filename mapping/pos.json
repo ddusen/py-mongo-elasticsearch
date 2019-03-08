@@ -787,7 +787,7 @@
                 },
                 "sum_change":
                 {
-                  "type": "long"
+                  "type": "double"
                 },
                 "coupons":
                 {
@@ -852,7 +852,7 @@
                     },
                     "amount":
                     {
-                      "type": "long"
+                      "type": "double"
                     },
                     "count":
                     {
@@ -943,6 +943,25 @@
         "is_broadcast":
         {
           "type": "boolean"
+        },
+        "sales_date_dict":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "month":
+            {
+              "type": "keyword"
+            },
+            "day":
+            {
+              "type": "keyword"
+            },
+            "hour":
+            {
+              "type": "keyword"
+            }
+          }
         }
       }
     }
