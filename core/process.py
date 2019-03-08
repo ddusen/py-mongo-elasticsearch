@@ -92,8 +92,18 @@ def format_mapping(old_mapping, new_data):
                 old_mapping[k] = {"type": "double"}
             elif type(v) is datetime.datetime and not old_mapping[k]['type'] is 'nested':
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
+
+                # 业务相关操作：时段聚合
+                if k == 'sales_date' and not 'sales_date_dict' in old_mapping:
+                    old_mapping['sales_date_dict'] = {"type": "nested", "properties": {"month": {"type": "keyword"}, "day": {"type": "keyword"}, "hour": {"type": "keyword"}}}
+
             elif type(v) is str and (re.compile(r'....-..-.. ..:..:..').match(v) or re.compile(r'....-..-..').match(v)):
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
+
+                # 业务相关操作：时段聚合
+                if k == 'sales_date' and not 'sales_date_dict' in old_mapping:
+                    old_mapping['sales_date_dict'] = {"type": "nested", "properties": {"month": {"type": "keyword"}, "day": {"type": "keyword"}, "hour": {"type": "keyword"}}}
+
             elif type(v) is list:
                 first = v[0]
                 if type(first) is dict:
@@ -117,6 +127,12 @@ def format_data(data):
             elif type(v) is datetime.datetime:
                 # 数据中时间类型转字符串类型
                 data[k] = date_to_str(v)
+
+                #业务相关操作: 时段聚合
+                if k == 'sales_date':
+                    m_d_h = re.compile(r'....-(..)-(..) (..):.*?').findall(data[k])[0]
+                    data['sales_date_dict'] = {'month': m_d_h[0], 'day': m_d_h[1], 'hour': m_d_h[2]}
+
             elif type(v) is float and math.isnan(v):
                 data[k] = None
             elif type(v) is str and (v.upper() == 'NOUN' or v.upper() == 'MEAL_DEAL'):
