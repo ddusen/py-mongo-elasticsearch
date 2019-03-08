@@ -63,6 +63,14 @@ class Sync:
                     # format data
                     doc = q
                     format_data(doc)
+
+                    #业务相关操作: 时段聚合
+                    if 'sales_date' in doc and doc['sales_date']:
+                        m_d_h = re.compile(r'....-(..)-(..) (..):.*?').findall(doc['sales_date'])[0]
+                        doc['sales_date_dict'] = {'month': m_d_h[0], 'day': m_d_h[1], 'hour': m_d_h[2]}
+                    else:
+                        doc['sales_date_dict'] = {'month': '', 'day': '', 'hour': ''}
+
                     # elastic save
                     self._elastic(table, doc_id, doc, option='create')
 
@@ -105,6 +113,13 @@ class Sync:
 
                         # format data
                         format_data(doc)
+
+                        #业务相关操作: 时段聚合
+                        if 'sales_date' in doc and doc['sales_date']:
+                            m_d_h = re.compile(r'....-(..)-(..) (..):.*?').findall(doc['sales_date'])[0]
+                            doc['sales_date_dict'] = {'month': m_d_h[0], 'day': m_d_h[1], 'hour': m_d_h[2]}
+                        else:
+                            doc['sales_date_dict'] = {'month': '', 'day': '', 'hour': ''}
 
                         if op is 'u':
                             self._elastic(table, doc_id, doc, option='update')
