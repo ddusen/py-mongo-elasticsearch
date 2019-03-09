@@ -80,9 +80,19 @@ def format_mapping(old_mapping, new_data):
         for k, v in new_data.items():
             if not k in old_mapping:
                 old_mapping[k] = {"type": "text"}
+
+            # 业务相关操作：时段聚合 
+            if k == 'terminal_open_time' and not 'terminal_open_time_dict' in old_mapping:
+                old_mapping['terminal_open_time_dict'] = {
+                    "type": "nested",
+                    "properties": {"month": {"type": "keyword"},
+                    "day": {"type": "keyword"},
+                    "hour": {"type": "keyword"}}
+                }
+
             if not v:
                pass 
-            elif type(v) is str and True in [ s in k for s in ['no', 'code', 'id', 'type']]:
+            elif k.endswith(('no', 'code', 'id', 'type')):
                 old_mapping[k] = {"type": "keyword"}
             elif type(v) is int and old_mapping[k]['type'] in ['text', 'keyword']:
                 old_mapping[k] = {"type": "long"}
@@ -92,18 +102,8 @@ def format_mapping(old_mapping, new_data):
                 old_mapping[k] = {"type": "double"}
             elif type(v) is datetime.datetime and not old_mapping[k]['type'] is 'nested':
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
-
-                # 业务相关操作：时段聚合
-                if k == 'sales_date' and not 'sales_date_dict' in old_mapping:
-                    old_mapping['sales_date_dict'] = {"type": "nested", "properties": {"month": {"type": "keyword"}, "day": {"type": "keyword"}, "hour": {"type": "keyword"}}}
-
             elif type(v) is str and (re.compile(r'....-..-.. ..:..:..').match(v) or re.compile(r'....-..-..').match(v)):
                 old_mapping[k] = {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}
-
-                # 业务相关操作：时段聚合
-                if k == 'sales_date' and not 'sales_date_dict' in old_mapping:
-                    old_mapping['sales_date_dict'] = {"type": "nested", "properties": {"month": {"type": "keyword"}, "day": {"type": "keyword"}, "hour": {"type": "keyword"}}}
-
             elif type(v) is list:
                 first = v[0]
                 if type(first) is dict:
