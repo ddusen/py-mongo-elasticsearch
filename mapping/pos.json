@@ -15,7 +15,7 @@
         },
         "store_id":
         {
-          "type": "text"
+          "type": "keyword"
         },
         "store_name":
         {
@@ -23,15 +23,15 @@
         },
         "store_code":
         {
-          "type": "text"
+          "type": "keyword"
         },
         "store_type":
         {
-          "type": "text"
+          "type": "keyword"
         },
         "store_us_id":
         {
-          "type": "text"
+          "type": "keyword"
         },
         "operator":
         {
@@ -51,7 +51,7 @@
         },
         "action_type":
         {
-          "type": "text"
+          "type": "keyword"
         },
         "terminal_open_time":
         {
@@ -75,7 +75,7 @@
           {
             "transaction_type":
             {
-              "type": "text"
+              "type": "keyword"
             },
             "body":
             {
@@ -88,7 +88,7 @@
                 },
                 "hex_no_cup_item_quantity":
                 {
-                  "type": "text"
+                  "type": "long"
                 },
                 "hex_no_cup_net_amount":
                 {
@@ -141,11 +141,11 @@
                     },
                     "code":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "qty":
                     {
@@ -153,7 +153,7 @@
                     },
                     "promotion_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     }
                   }
                 },
@@ -198,7 +198,7 @@
                 },
                 "hex_discount_id":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "hex_trans_payments":
                 {
@@ -210,11 +210,11 @@
                 },
                 "open_user_id":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "disc_user_id":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "pay_comment":
                 {
@@ -243,7 +243,7 @@
                     },
                     "hex_category_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "hex_trans_discounts":
                     {
@@ -264,7 +264,7 @@
                         },
                         "id":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "computing_unit":
                         {
@@ -272,7 +272,7 @@
                         },
                         "code":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "category_name":
                         {
@@ -280,11 +280,11 @@
                         },
                         "category_id":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "category_code":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "attribute":
                         {
@@ -306,7 +306,7 @@
                     },
                     "hex_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "tips_amount":
                     {
@@ -338,11 +338,11 @@
                     },
                     "id":
                     {
-                      "type": "long"
+                      "type": "keyword"
                     },
                     "guid":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "dis_rate":
                     {
@@ -350,11 +350,12 @@
                     },
                     "order_no":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "pay_time":
                     {
-                      "type": "text"
+                      "type": "date",
+                      "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
                     },
                     "es_amount":
                     {
@@ -362,7 +363,7 @@
                     },
                     "tender_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "db_fav_amount":
                     {
@@ -370,11 +371,12 @@
                     },
                     "tender_type":
                     {
-                      "type": "long"
+                      "type": "keyword"
                     },
                     "bus_date":
                     {
-                      "type": "text"
+                      "type": "date",
+                      "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
                     },
                     "change":
                     {
@@ -390,7 +392,7 @@
                     },
                     "order_unique_no":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "class_id":
                     {
@@ -398,21 +400,21 @@
                     },
                     "tender_key_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "tender_meta_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     }
                   }
                 },
                 "xgu_id":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "chargehostid":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "peoples":
                 {
@@ -449,7 +451,7 @@
                     },
                     "hex_discount_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "hex_trans_payments":
                     {
@@ -468,7 +470,7 @@
                     },
                     "unit_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "hex_is_cup":
                     {
@@ -476,11 +478,11 @@
                     },
                     "hex_main_type":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "hex_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "categories":
                     {
@@ -489,11 +491,11 @@
                       {
                         "parent_id":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "code":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "name":
                         {
@@ -501,7 +503,7 @@
                         },
                         "id":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         }
                       }
                     },
@@ -512,11 +514,11 @@
                       {
                         "parent_id":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "code":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "name":
                         {
@@ -524,7 +526,7 @@
                         },
                         "id":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         }
                       }
                     },
@@ -554,15 +556,15 @@
                     },
                     "catalog_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "meal_deal_master_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "item_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "dis_odr_amount":
                     {
@@ -582,7 +584,7 @@
                     },
                     "guid":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "discount":
                     {
@@ -610,7 +612,7 @@
                     },
                     "depart_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "credit_amount":
                     {
@@ -618,7 +620,7 @@
                     },
                     "parent_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "plu":
                     {
@@ -630,7 +632,7 @@
                     },
                     "dis_key_id":
                     {
-                      "type": "text"
+                      "type": "long"
                     },
                     "name":
                     {
@@ -646,19 +648,20 @@
                     },
                     "key_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "order_no":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "type":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "bus_date":
                     {
-                      "type": "text"
+                      "type": "date",
+                      "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
                     },
                     "base_price":
                     {
@@ -666,7 +669,7 @@
                     },
                     "meal_deal_item_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "discounts":
                     {
@@ -679,11 +682,15 @@
                         },
                         "code":
                         {
-                          "type": "text"
+                          "type": "keyword"
                         },
                         "amount":
                         {
                           "type": "double"
+                        },
+                        "count":
+                        {
+                          "type": "long"
                         }
                       }
                     },
@@ -693,7 +700,7 @@
                     },
                     "order_unique_no":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     },
                     "dis_count":
                     {
@@ -705,7 +712,7 @@
                     },
                     "item_key_id":
                     {
-                      "type": "text"
+                      "type": "keyword"
                     }
                   }
                 },
@@ -743,7 +750,7 @@
                 },
                 "card_no":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "open_user_name":
                 {
@@ -759,7 +766,8 @@
                 },
                 "close_time":
                 {
-                  "type": "text"
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
                 },
                 "pos_name":
                 {
@@ -779,11 +787,11 @@
                 },
                 "close_user_id":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "disc_key_id":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "sum_change":
                 {
@@ -799,15 +807,16 @@
                 },
                 "open_time":
                 {
-                  "type": "text"
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
                 },
                 "order_no":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "pos_id":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "disc_item_amount":
                 {
@@ -819,11 +828,12 @@
                 },
                 "bus_date":
                 {
-                  "type": "text"
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
                 },
                 "active_code":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "phone":
                 {
@@ -835,7 +845,8 @@
                 },
                 "original_open_time":
                 {
-                  "type": "text"
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
                 },
                 "dept_class_name":
                 {
@@ -848,7 +859,7 @@
                   {
                     "code":
                     {
-                      "type": "long"
+                      "type": "keyword"
                     },
                     "amount":
                     {
@@ -862,11 +873,31 @@
                 },
                 "order_unique_no":
                 {
-                  "type": "text"
+                  "type": "keyword"
                 },
                 "sales_date":
                 {
-                  "type": "text"
+                  "type": "date",
+                  "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+                },
+                "sales_date_dict":
+                {
+                  "type": "nested",
+                  "properties":
+                  {
+                    "month":
+                    {
+                      "type": "keyword"
+                    },
+                    "day":
+                    {
+                      "type": "keyword"
+                    },
+                    "hour":
+                    {
+                      "type": "keyword"
+                    }
+                  }
                 }
               }
             },
@@ -900,7 +931,7 @@
           {
             "parent_id":
             {
-              "type": "text"
+              "type": "keyword"
             },
             "name":
             {
@@ -908,7 +939,7 @@
             },
             "id":
             {
-              "type": "text"
+              "type": "keyword"
             }
           }
         },
@@ -919,7 +950,7 @@
           {
             "parent_id":
             {
-              "type": "text"
+              "type": "keyword"
             },
             "name":
             {
@@ -927,7 +958,7 @@
             },
             "id":
             {
-              "type": "text"
+              "type": "keyword"
             }
           }
         },
@@ -945,6 +976,25 @@
           "type": "boolean"
         },
         "sales_date_dict":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "month":
+            {
+              "type": "keyword"
+            },
+            "day":
+            {
+              "type": "keyword"
+            },
+            "hour":
+            {
+              "type": "keyword"
+            }
+          }
+        },
+        "terminal_open_time_dict":
         {
           "type": "nested",
           "properties":

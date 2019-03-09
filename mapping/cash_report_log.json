@@ -1,1 +1,1 @@
-{"mappings": {"cash_report_log": {"properties": {"is_created_all": {"type": "boolean"}, "operation_date": {"type": "text"}}}}}
+{"mappings": {"cash_report_log": {"properties": {"is_created_all": {"type": "boolean"}, "operation_date": {"type": "date", "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"}}}}}
