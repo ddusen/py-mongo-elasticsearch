@@ -1,13 +1,9 @@
+import re
 import os
 import sys
-import re
 sys.path.append(os.getcwd())
 
 from time import sleep
-from elasticsearch import Elasticsearch
-from elasticsearch.client import IndicesClient
-from elasticsearch.exceptions import (NotFoundError,
-                                      ConflictError, RequestError, )
 from pymongo import MongoClient, ASCENDING
 from pymongo.cursor import CursorType
 from pymongo.errors import AutoReconnect
@@ -17,6 +13,7 @@ from process import (read_config, write_config, read_mapping,
                      format_data, )
 from utils.logger import Logger
 from utils.mongo import Mongo
+from utils.elastic import Elastic
 
 # Time to wait for data or connection.
 _SLEEP = 1
@@ -33,6 +30,7 @@ class Sync:
 
         # inital logging
         self.logger = Logger('sync')
+        self.es = Elastic(self.elastic)
 
     # 基于 SQL 语句的全量同步
     def _full_sql(self):
@@ -42,7 +40,7 @@ class Sync:
 
             # create new es index
             self.logger.record('create new es index:{}'.format(table))
-            self._elastic(table, doc=read_mapping(table), option='init')
+            self.es.init(table, mapping=read_mapping(table))
 
             # sync
             self.mongo['table'] = table
@@ -56,6 +54,8 @@ class Sync:
                 self.logger.record('offset:{}, limit:{}'.format(offset, limit))
 
                 queryset = client.find(offset=offset, limit=limit)
+                actions = []
+                action_ids = []
                 for q in queryset:
                     # 数据库ID -> 文档ID
                     doc_id = str(q['_id'])
@@ -71,8 +71,16 @@ class Sync:
                     else:
                         doc['sales_date_dict'] = {'month': '', 'day': '', 'hour': ''}
 
-                    # elastic save
-                    self._elastic(table, doc_id, doc, option='create')
+                    action_ids.append(doc_id)
+                    actions.append({
+                        "_index": table,
+                        "_type":  table,
+                        "_id": doc_id,
+                        "_source": doc
+                    })
+
+                # elastic save for batch
+                self.es.insert_batch(table, actions, action_ids)
 
                 sleep(_SLEEP)
                 offset += limit
@@ -122,11 +130,11 @@ class Sync:
                             doc['terminal_open_time_dict'] = {'month': '', 'day': '', 'hour': ''}
 
                         if op is 'u':
-                            self._elastic(table, doc_id, doc, option='update')
+                            self.es.update(table, doc_id, doc)
                         elif op is 'i':
-                            self._elastic(table, doc_id, doc, option='create')
+                            self.es.insert(table, doc_id, doc)
                         elif op is 'd':
-                            self._elastic(table, doc_id, option='delete')
+                            self.es.delete(table, doc_id)
 
                         # 记录增量位置
                         write_config('oplog', 'ts', stamp)
@@ -136,68 +144,6 @@ class Sync:
                 sleep(_SLEEP)
 
         self.logger.record('Ending：based increase oplog.')
-
-    # elastic
-    def _elastic(self, index=None, doc_id=None, doc={}, option='create'):
-        """
-        option: 
-            init: 初始化文档结构。（当config.ini中的init为True时才会执行。）
-            create: 若文档已存在，则不执行任何操作。 若文档不存在，则直接创建。
-            update: 若文档已存在，则直接更新。 若文档不存在，则不执行任何操作。
-            delete: 若文档已存在，则直接删除。若文档不存在，则不执行任何操作。
-        """
-        esclient = Elasticsearch([self.elastic])
-
-        status = 'Success !'
-
-        index = self.elastic['index'] if not index else index
-
-        if 'create' == option:
-            try:
-                esclient.create(
-                    index=index,
-                    id=doc_id,
-                    doc_type=index,
-                    body=doc,
-                )
-            except ConflictError:
-                status = 'Fail(existsd) !'
-
-        elif 'update' == option:
-            try:
-                esclient.update(
-                    index=index,
-                    id=doc_id,
-                    doc_type=index,
-                    body={'doc': doc},
-                )
-            except NotFoundError:
-                status = 'Fail(not existsd) !'
-
-        elif 'delete' == option:
-            try:
-                esclient.delete(
-                    index=index,
-                    id=doc_id,
-                    doc_type=index,
-                )
-            except NotFoundError:
-                status = 'Fail(not existsd) !'
-
-        elif 'init' == option:
-            try:
-                IndicesClient(esclient).create(
-                    index=index,
-                    body=doc,
-                )
-            except RequestError:
-                status = 'Fail(existsd) !'
-
-        self.logger.record('Sync@%s < %s-%s > %s' % (option,
-                                                    index,
-                                                    doc_id,
-                                                    status,
-                                                    ))
 
 
 if __name__ == '__main__':
