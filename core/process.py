@@ -81,13 +81,23 @@ def format_mapping(old_mapping, new_data):
             if not k in old_mapping:
                 old_mapping[k] = {"type": "text"}
 
-            # 业务相关操作：时段聚合 
+            # 业务相关操作：聚合 
             if k == 'terminal_open_time' and not 'terminal_open_time_dict' in old_mapping:
                 old_mapping['terminal_open_time_dict'] = {
                     "type": "nested",
                     "properties": {"month": {"type": "keyword"},
                     "day": {"type": "keyword"},
                     "hour": {"type": "keyword"}}
+                }
+            if k == 'store_branch' and not 'store_branch_dict' in old_mapping and len(v):
+                old_mapping['store_branch_dict'] = {
+                    "type": "nested",
+                    "properties": { i+1: {"type": "keyword"} for i in range(len(v))}
+                }
+            if k == 'store_geo' and not 'store_geo_dict' in old_mapping and len(v):
+                old_mapping['store_geo_dict'] = {
+                    "type": "nested",
+                    "properties": { i+1: {"type": "keyword"} for i in range(len(v))}
                 }
 
             if not v:
@@ -140,10 +150,16 @@ def format_data(data):
 
 # 业务相关操作：时段聚合
 def format_data_for_aggs(data):
-    if 'terminal_open_time' in data and data['terminal_open_time']:
+    if not data.get('terminal_open_time'):
+        data['terminal_open_time_dict'] = None
+    else:
         m_d_h = re.compile(r'....-(..)-(..) (..):.*?').findall(data['terminal_open_time'])[0]
         data['terminal_open_time_dict'] = {'month': m_d_h[0], 'day': m_d_h[1], 'hour': m_d_h[2]}
+    if not data.get('store_branch'):
+        data['store_branch_dict'] = None
     else:
-        data['terminal_open_time_dict'] = {'month': '', 'day': '', 'hour': ''}
-    
-                    
+        data['store_branch_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_branch'])}
+    if not data.get('store_geo'):
+        data['store_geo_dict'] = None
+    else:
+        data['store_geo_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_geo'])}
