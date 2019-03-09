@@ -158,8 +158,8 @@ def format_data_for_aggs(data):
     if not data.get('store_branch'):
         data['store_branch_dict'] = None
     else:
-        data['store_branch_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_branch'])}
+        data['store_branch_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_branch']) if v}
     if not data.get('store_geo'):
         data['store_geo_dict'] = None
     else:
-        data['store_geo_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_geo'])}
+        data['store_geo_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_geo']) if v}
