@@ -137,4 +137,13 @@ def format_data(data):
                 for i in v:
                     if type(i) is dict:
                         format_data(i)
+
+# 业务相关操作：时段聚合
+def format_data_for_aggs(data):
+    if 'terminal_open_time' in data and data['terminal_open_time']:
+        m_d_h = re.compile(r'....-(..)-(..) (..):.*?').findall(data['terminal_open_time'])[0]
+        data['terminal_open_time_dict'] = {'month': m_d_h[0], 'day': m_d_h[1], 'hour': m_d_h[2]}
+    else:
+        data['terminal_open_time_dict'] = {'month': '', 'day': '', 'hour': ''}
+    
                     
