@@ -1012,6 +1012,44 @@
               "type": "keyword"
             }
           }
+        },
+        "store_branch_dict":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "1":
+            {
+              "type": "keyword"
+            },
+            "2":
+            {
+              "type": "keyword"
+            },
+            "3":
+            {
+              "type": "keyword"
+            }
+          }
+        },
+        "store_geo_dict":
+        {
+          "type": "nested",
+          "properties":
+          {
+            "1":
+            {
+              "type": "keyword"
+            },
+            "2":
+            {
+              "type": "keyword"
+            },
+            "3":
+            {
+              "type": "keyword"
+            }
+          }
         }
       }
     }
