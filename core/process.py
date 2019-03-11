@@ -69,6 +69,46 @@ def write_mapping(name, data):
         json.dump(data, file)
 
 
+# 业务相关操作：聚合 
+def format_mapping_for_aggs(key, value, mapping):
+    # pos
+    if key == 'terminal_open_time' and not 'terminal_open_time_dict' in mapping:
+        mapping['terminal_open_time_dict'] = {
+            "type": "nested",
+            "properties": {"month": {"type": "keyword"},
+            "day": {"type": "keyword"},
+            "hour": {"type": "keyword"}}
+        }
+    if key == 'store_branch' and not 'store_branch_dict' in mapping and len(value):
+        mapping['store_branch_dict'] = {
+            "type": "nested",
+            "properties": { i+1: {"type": "keyword"} for i in range(len(value))}
+        }
+    if key == 'store_geo' and not 'store_geo_dict' in mapping and len(value):
+        mapping['store_geo_dict'] = {
+            "type": "nested",
+            "properties": { i+1: {"type": "keyword"} for i in range(len(value))}
+        }
+    # pos_store_sales_detail
+    if key == 'sales_amount' and not 'sales_amount_list' in mapping:
+        mapping['sales_amount_list'] = {
+            "type": "keyword"
+        }
+    if key == 'sales_count' and not 'sales_count_list' in mapping:
+        mapping['sales_count_list'] = {
+            "type": "keyword"
+        }
+    if key == 'branch_ids' and not 'store_branch_dict' in mapping and len(value):
+        mapping['store_branch_dict'] = {
+            "type": "nested",
+            "properties": { i+1: {"type": "keyword"} for i in range(len(value))}
+        }
+    if key == 'geo_ids' and not 'store_geo_dict' in mapping and len(value):
+        mapping['store_geo_dict'] = {
+            "type": "nested",
+            "properties": { i+1: {"type": "keyword"} for i in range(len(value))}
+        }
+
 # 生成mapping文件，根据mongo data
 def format_mapping(old_mapping, new_data):
     '''
@@ -82,28 +122,12 @@ def format_mapping(old_mapping, new_data):
                 old_mapping[k] = {"type": "text"}
 
             # 业务相关操作：聚合 
-            if k == 'terminal_open_time' and not 'terminal_open_time_dict' in old_mapping:
-                old_mapping['terminal_open_time_dict'] = {
-                    "type": "nested",
-                    "properties": {"month": {"type": "keyword"},
-                    "day": {"type": "keyword"},
-                    "hour": {"type": "keyword"}}
-                }
-            if k == 'store_branch' and not 'store_branch_dict' in old_mapping and len(v):
-                old_mapping['store_branch_dict'] = {
-                    "type": "nested",
-                    "properties": { i+1: {"type": "keyword"} for i in range(len(v))}
-                }
-            if k == 'store_geo' and not 'store_geo_dict' in old_mapping and len(v):
-                old_mapping['store_geo_dict'] = {
-                    "type": "nested",
-                    "properties": { i+1: {"type": "keyword"} for i in range(len(v))}
-                }
+            format_mapping_for_aggs(k, v, old_mapping)
 
-            if not v:
-               pass 
-            elif k.endswith(('no', 'code', 'id', 'type')):
+            if k.endswith(('no', 'code', 'id', 'type')):
                 old_mapping[k] = {"type": "keyword"}
+            elif k.endswith(('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')) and not k in ['1', '2', '3']:
+                old_mapping[k] = {"type": "double", "null_value": 0}
             elif type(v) is int and old_mapping[k]['type'] in ['text', 'keyword']:
                 old_mapping[k] = {"type": "long"}
             elif type(v) is bool and old_mapping[k]['type'] in ['text', 'keyword']:
@@ -150,6 +174,7 @@ def format_data(data):
 
 # 业务相关操作：时段聚合
 def format_data_for_aggs(data):
+    # pos
     if not data.get('terminal_open_time'):
         data['terminal_open_time_dict'] = None
     else:
@@ -163,3 +188,20 @@ def format_data_for_aggs(data):
         data['store_geo_dict'] = None
     else:
         data['store_geo_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_geo']) if v}
+    # pos_store_sales_detail
+    if not data.get('branch_ids'):
+        data['store_branch_dict'] = None
+    else:
+        data['store_branch_dict'] = { i+1: v for i,v in enumerate(data['branch_ids']) if v}
+    if not data.get('geo_ids'):
+        data['store_geo_dict'] = None
+    else:
+        data['store_geo_dict'] = { i+1: v for i,v in enumerate(data['geo_ids']) if v}
+    if not data.get('sales_count'):
+        data['sales_count_list'] = None
+    else:
+        data['sales_count_list'] = [ k for k in data['sales_count'].keys() ]
+    if not data.get('sales_amount'):
+        data['sales_amount_list'] = None
+    else:
+        data['sales_amount_list'] = [ k for k in data['sales_amount'].keys() ]
