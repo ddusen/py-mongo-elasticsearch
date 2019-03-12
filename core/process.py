@@ -89,6 +89,7 @@ def format_mapping_for_aggs(key, value, mapping):
             "type": "nested",
             "properties": { i+1: {"type": "keyword"} for i in range(len(value))}
         }
+
     # pos_store_sales_detail
     if key == 'sales_amount' and not 'sales_amount_list' in mapping:
         mapping['sales_amount_list'] = {
@@ -98,15 +99,22 @@ def format_mapping_for_aggs(key, value, mapping):
         mapping['sales_count_list'] = {
             "type": "keyword"
         }
-    if key == 'branch_ids' and not 'store_branch_dict' in mapping and len(value):
-        mapping['store_branch_dict'] = {
+    if key == 'branch_ids' and not 'branch_dict' in mapping and len(value):
+        mapping['branch_dict'] = {
             "type": "nested",
             "properties": { i+1: {"type": "keyword"} for i in range(len(value))}
         }
-    if key == 'geo_ids' and not 'store_geo_dict' in mapping and len(value):
-        mapping['store_geo_dict'] = {
+    if key == 'geo_ids' and not 'geo_dict' in mapping and len(value):
+        mapping['geo_dict'] = {
             "type": "nested",
             "properties": { i+1: {"type": "keyword"} for i in range(len(value))}
+        }
+
+    # pos_store_sales
+    if key == 'branch' and not 'branch' in mapping and len(value):
+        mapping['branch_dict'] = {
+            "type": "nested",
+            "properties": { i: {"type": "keyword"} for i in range(len(value))}
         }
 
 # 生成mapping文件，根据mongo data
@@ -188,15 +196,16 @@ def format_data_for_aggs(data):
         data['store_geo_dict'] = None
     else:
         data['store_geo_dict'] = { i+1: v['id'] for i,v in enumerate(data['store_geo']) if v}
+
     # pos_store_sales_detail
     if not data.get('branch_ids'):
-        data['store_branch_dict'] = None
+        data['branch_dict'] = None
     else:
-        data['store_branch_dict'] = { i+1: v for i,v in enumerate(data['branch_ids']) if v}
+        data['branch_dict'] = { i+1: v for i,v in enumerate(data['branch_ids']) if v}
     if not data.get('geo_ids'):
-        data['store_geo_dict'] = None
+        data['geo_dict'] = None
     else:
-        data['store_geo_dict'] = { i+1: v for i,v in enumerate(data['geo_ids']) if v}
+        data['geo_dict'] = { i+1: v for i,v in enumerate(data['geo_ids']) if v}
     if not data.get('sales_count'):
         data['sales_count_list'] = None
     else:
@@ -205,3 +214,9 @@ def format_data_for_aggs(data):
         data['sales_amount_list'] = None
     else:
         data['sales_amount_list'] = [ k for k in data['sales_amount'].keys() ]
+
+    # pos_store_sales
+    if not data.get('branch'):
+        data['branch_dict'] = None
+    else:
+        data['branch_dict'] = { i: v['id'] for i,v in enumerate(data['branch']) if v}
